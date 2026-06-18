@@ -1,7 +1,5 @@
+import { redirect } from 'next/navigation';
+
 export default function Home() {
-  return (
-    <div>
-      This is what you ask for, heavy is the crown.
-    </div>
-  );
+  redirect('/applications');
 }

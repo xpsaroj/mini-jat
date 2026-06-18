@@ -28,7 +28,7 @@ export function createApp(): express.Application {
   // API routes
   app.use('/api/applications', applicationRouter);
 
-  // Global error handler (must be last)
+  // Global error handler
   app.use(errorHandler);
 
   return app;

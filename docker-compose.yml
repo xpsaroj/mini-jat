@@ -1,3 +1,4 @@
+name: mini-jat
 services:
   postgres:
     image: postgres:16-alpine
@@ -23,15 +24,20 @@ services:
     restart: unless-stopped
     ports:
       - "4000:4000"
+    volumes:
+      # bind mount for hot reload
+      - ./server:/app
+      # ignore node_modules from host to avoid conflicts
+      - /app/node_modules
     environment:
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/mini_jat
       PORT: 4000
-      NODE_ENV: production
+      NODE_ENV: development
       CLIENT_URL: http://localhost:3000
     depends_on:
       postgres:
         condition: service_healthy
-    command: sh -c "npm run db:migrate && npm run start"
+    # command: sh -c "npm run db:migrate && npm run start"
 
   client:
     build:
@@ -40,8 +46,12 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
+    volumes:
+      # bind mount for hot reload
+      - ./client:/app
+      - /app/node_modules
     environment:
-      NEXT_PUBLIC_API_URL: http://server:4000/api
+      NEXT_PUBLIC_API_URL: http://localhost:4000/api
     depends_on:
       - server
 

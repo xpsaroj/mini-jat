@@ -29,8 +29,9 @@ function parseId(req: Request): number {
 // GET /api/applications
 export const getAll = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
-    // After validate(querySchema, 'query'), values are already coerced
-    const q = req.query as {
+    // validate(querySchema, 'query') stores coerced data in req.validatedQuery
+    // because req.query is a read-only getter in Express 5.
+    const q = (req.validatedQuery ?? {}) as {
       status?: ApplicationSelect['status'];
       search?: string;
       page?: number;
