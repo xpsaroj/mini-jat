@@ -1,7 +1,6 @@
 import type { ApplicationStatus } from '@/types';
 
-// ─── Status badge ─────────────────────────────────────────────────────────
-
+// Status Badge
 const statusStyles: Record<
   ApplicationStatus,
   { bg: string; text: string }
@@ -40,8 +39,7 @@ export function StatusBadge({ status, className = '' }: StatusBadgeProps) {
   );
 }
 
-// ─── General badge ────────────────────────────────────────────────────────
-
+// General Badge
 type BadgeVariant = 'default' | 'muted' | 'outline';
 
 const badgeVariantStyles: Record<BadgeVariant, string> = {

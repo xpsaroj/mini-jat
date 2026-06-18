@@ -9,7 +9,7 @@ import type {
 const BASE_URL =
   process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000/api';
 
-// ─── Generic fetch wrapper ────────────────────────────────────────────────
+// Generic fetch wrapper
 async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`, {
     ...init,
@@ -33,7 +33,7 @@ async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
   return res.json() as Promise<T>;
 }
 
-// ─── Endpoint helpers ─────────────────────────────────────────────────────
+// Endpoint helpers
 
 export interface GetApplicationsParams {
   status?: ApplicationStatus;

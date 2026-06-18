@@ -1,7 +1,6 @@
 /** Format a YYYY-MM-DD date string to a human-readable label. */
 export function formatDate(dateStr: string): string {
   try {
-    // Add T00:00:00 to avoid UTC offset shifting the date by one day
     const date = new Date(`${dateStr}T00:00:00`);
     return date.toLocaleDateString('en-US', {
       month: 'short',
@@ -10,6 +9,19 @@ export function formatDate(dateStr: string): string {
     });
   } catch {
     return dateStr;
+  }
+}
+
+/** Format a full ISO 8601 date-time string to a human-readable label. */
+export function formatIsoDate(isoStr: string): string {
+  try {
+    return new Date(isoStr).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
+  } catch {
+    return isoStr;
   }
 }
 

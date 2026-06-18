@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { Plus } from 'lucide-react';
 import { useApplications } from '@/hooks/useApplications';
 import { deleteApplication } from '@/lib/api';
 import type { Application, ApplicationStatus } from '@/types';
@@ -13,7 +14,7 @@ import { Modal } from '@/components/ui/Modal';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { formatDate } from '@/lib/utils';
 
-// ─── Constants ────────────────────────────────────────────────────────────
+// Consts
 
 const STATUS_OPTIONS: { value: ApplicationStatus | ''; label: string }[] = [
   { value: '', label: 'All Status' },
@@ -23,7 +24,7 @@ const STATUS_OPTIONS: { value: ApplicationStatus | ''; label: string }[] = [
   { value: 'Rejected', label: 'Rejected' },
 ];
 
-// ─── Subcomponents ────────────────────────────────────────────────────────
+// Subcomponents
 
 interface RowProps {
   application: Application;
@@ -96,7 +97,7 @@ function getPageRange(current: number, total: number): number[] {
   return Array.from({ length: end - start + 1 }, (_, i) => start + i);
 }
 
-// ─── Main component ───────────────────────────────────────────────────────
+// Main Component
 
 export function ApplicationsList() {
   const [search, setSearch] = useState('');
@@ -127,7 +128,7 @@ export function ApplicationsList() {
     limit: 10,
   });
 
-  // ─── Delete handlers ────────────────────────────────────────────────
+  // Delete handlers
   const openDeleteModal = (id: number) => {
     setDeleteId(id);
     setDeleteError(null);
@@ -164,7 +165,7 @@ export function ApplicationsList() {
 
   return (
     <div>
-      {/* ── Page header ──────────────────────────────────────────────── */}
+      {/* Header */}
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-foreground">
@@ -179,33 +180,20 @@ export function ApplicationsList() {
         </div>
         <Link href="/applications/new">
           <Button id="btn-add-application" className="shrink-0">
-            <svg
-              className="h-4 w-4"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 4v16m8-8H4"
-              />
-            </svg>
+            <Plus className="h-4 w-4" />
             Add Application
           </Button>
         </Link>
       </div>
 
-      {/* ── Success banner ────────────────────────────────────────────── */}
+      {/* Success banner */}
       {successMsg !== null && (
         <div className="mb-4 rounded-md border border-accent/30 bg-accent-subtle px-4 py-3 text-sm text-accent">
           {successMsg}
         </div>
       )}
 
-      {/* ── Filters ───────────────────────────────────────────────────── */}
+      {/* Filters */}
       <div className="mb-6 flex flex-col gap-3 sm:flex-row">
         <div className="flex-1">
           <Input
@@ -232,14 +220,14 @@ export function ApplicationsList() {
         </div>
       </div>
 
-      {/* ── API error ─────────────────────────────────────────────────── */}
+      {/* API error */}
       {error !== null && (
         <div className="mb-6 rounded-md border border-destructive/30 bg-destructive-bg px-4 py-3 text-sm text-destructive">
           {error}
         </div>
       )}
 
-      {/* ── Table ─────────────────────────────────────────────────────── */}
+      {/* Table */}
       <div className="overflow-hidden rounded-lg border border-border bg-surface shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
@@ -301,7 +289,7 @@ export function ApplicationsList() {
         </div>
       </div>
 
-      {/* ── Pagination ────────────────────────────────────────────────── */}
+      {/* Pagination */}
       {!loading && totalPages > 1 && (
         <div className="mt-6 flex items-center justify-between">
           <p className="text-sm text-foreground-muted">
@@ -342,7 +330,7 @@ export function ApplicationsList() {
         </div>
       )}
 
-      {/* ── Delete confirmation modal ─────────────────────────────────── */}
+      {/* Delete confirmation modal */}
       <Modal
         isOpen={deleteId !== null}
         onClose={closeDeleteModal}

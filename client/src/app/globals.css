@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* ─── Raw CSS custom properties (available for inline styles / CSS) ─────── */
 :root {
   /* Backgrounds */
   --background:           oklch(0.975 0 0);
@@ -39,7 +38,6 @@
   --warning:              oklch(0.65 0.18 70);
 }
 
-/* ─── Tailwind v4 design tokens ─────────────────────────────────────────── */
 @theme inline {
   /* Backgrounds */
   --color-background:           var(--background);
@@ -87,7 +85,7 @@
   --radius-xl:  1rem;
 }
 
-/* ─── Base styles ────────────────────────────────────────────────────────── */
+/* Base Styles */
 *,
 *::before,
 *::after {

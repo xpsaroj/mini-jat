@@ -1,4 +1,5 @@
 import { forwardRef, type SelectHTMLAttributes } from 'react';
+import { ChevronDown } from 'lucide-react';
 
 export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
@@ -32,22 +33,8 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         >
           {children}
         </select>
-        {/* Custom chevron */}
         <div className="pointer-events-none absolute inset-y-0 right-2.5 flex items-center">
-          <svg
-            className="h-4 w-4 text-foreground-muted"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M6 9l6 6 6-6"
-            />
-          </svg>
+          <ChevronDown className="h-4 w-4 text-foreground-muted" />
         </div>
       </div>
       {error && <p className="text-xs text-destructive">{error}</p>}
