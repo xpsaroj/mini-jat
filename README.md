@@ -1,6 +1,20 @@
-# mini-jat — Job Application Tracker
+# mini-jat (Job Application Tracker)
 
 A minimal full-stack job application tracker. Record every application you submit, track its status through the pipeline, and keep notes — all in one clean interface.
+
+## Screenshots
+
+### Dashboard
+![Dashboard](./assets/readme/dashboard.png)
+
+### Create Application
+![Create Application](./assets/readme/create-application.png)
+
+### Edit Application
+![Edit Application](./assets/readme/edit-application.png)
+
+### View Application
+![View Application](./assets/readme/view-application.png)
 
 ## Tech Stack
 
@@ -33,8 +47,8 @@ mini-jat/
 └── docker-compose.yml
 ```
 
-## Quick Start (Docker — recommended)
-
+## Quick Start (Docker)
+Prerequisites: Docker and docker-compose installed.
 ```bash
 # Clone and enter
 git clone https://github.com/xpsaroj/mini-jat.git
@@ -55,18 +69,29 @@ docker compose down -v
 
 **Prerequisites:** Node 20+, PostgreSQL 15+ running locally.
 
+### Clone the repo
 ```bash
-# 1 — Server
-cp server/.env.example server/.env
-# Edit server/.env: set DATABASE_URL to your local postgres connection string
+# Clone and enter
+git clone https://github.com/xpsaroj/mini-jat.git
+cd mini-jat
+```
+
+### Server
+```bash
 cd server
+cp .env.example .env
+# Edit .env: set DATABASE_URL to your local postgres connection string
+
 npm install
 npm run db:push          # push schema directly (skips migration files)
 npm run dev              # starts on http://localhost:4000
+```
 
-# 2 — Client  (new terminal)
-cp client/.env.example client/.env.local
+### Client  (new terminal)
+```bash
 cd client
+cp .env.example .env.local
+
 npm install
 npm run dev              # starts on http://localhost:3000
 ```
@@ -87,6 +112,13 @@ npm run dev              # starts on http://localhost:3000
 | Variable | Default | Description |
 |---|---|---|
 | `NEXT_PUBLIC_API_URL` | `http://localhost:4000/api` | Base URL of the Express API |
+
+## Tests (Server only)
+
+```bash
+cd server
+npm run test
+```
 
 ## API Reference
 
@@ -121,6 +153,56 @@ Base path: `/api`
 | `applied_date` | `string` (YYYY-MM-DD) | Required |
 | `notes` | `string` | Optional |
 
+### Response Structure
+- health check
+```json
+{
+    "status": "ok",
+    "timestamp": "2024-06-01T12:00:00Z"
+}
+```
+
+- list applications
+```json
+{
+    "data": [
+        {
+            "id": 1,
+            "company_name": "Acme Corp",
+            "job_title": "Software Engineer",
+            "job_type": "Internship",
+            "status": "Interviewing",
+            "applied_date": "2024-05-30",
+            "notes": "Notes here...",
+            "created_at": "2026-06-18T20:16:02.803Z",
+            "updated_at": "2026-06-18T20:16:02.803Z"
+        },
+        // ...
+    ],
+    "total": 11,
+    "page": 1,
+    "limit": 10,
+    "totalPages": 2
+}
+```
+
+- single application
+```json
+{
+    "data": {
+        "id": 12,
+        "company_name": "Spinner",
+        "job_title": "Spinner",
+        "job_type": "Internship",
+        "status": "Offer",
+        "applied_date": "2026-06-19",
+        "notes": "Notes here...",
+        "created_at": "2026-06-18T20:16:02.803Z",
+        "updated_at": "2026-06-18T20:16:02.803Z"
+    }
+}
+```
+
 ## Development Commands
 
 ### Server (`cd server`)
@@ -129,6 +211,7 @@ Base path: `/api`
 npm run dev          # ts-node-dev with watch
 npm run build        # compile TypeScript → dist/
 npm run typecheck    # tsc --noEmit
+npm run lint         # Run ESLint
 npm test             # Vitest unit tests
 
 npm run db:generate  # generate a new Drizzle migration
@@ -142,5 +225,5 @@ npm run db:studio    # open Drizzle Studio in browser
 ```bash
 npm run dev          # Next.js dev server (Turbopack)
 npm run build        # production bundle
-npm run typecheck    # tsc --noEmit
+npm run lint         # Run ESLint
 ```

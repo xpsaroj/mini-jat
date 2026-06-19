@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import type { ApplicationInsert, ApplicationSelect } from '../../../db/schema.js';
 
 // Stub data used inside the mock factory (defined before vi.mock hoisting)
@@ -45,7 +45,7 @@ vi.mock('../../../db/index.js', () => {
 });
 
 // Import service AFTER vi.mock is set up (vitest hoists vi.mock automatically)
-const { createApplication, getApplicationById, updateApplication, deleteApplication } =
+const { createApplication, getApplicationById } =
   await import('../applications.service.js');
 
   
